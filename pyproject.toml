@@ -1,0 +1,16 @@
+[project]
+name = "k-nearest-neighbors"
+version = "0.1.0"
+description = "Ball Tree vs brute-force k-nearest neighbors performance comparison"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0.0",
+    "pandas>=2.2.0",
+    "scikit-learn>=1.5.0",
+    "scipy>=1.13.0",
+    "jupyter>=1.0.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

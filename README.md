@@ -20,3 +20,25 @@ What's the fastest way to find the closest Starbucks to any house in the US?
 **Runtime using the Ball Tree?** 1.44 seconds!
 
 **Average distance to a Starbucks from over 27,000 houses in the US?** 8.15 miles :)
+
+## Running the Notebook
+
+```bash
+# install dependencies with uv
+uv sync
+
+# or with pip
+pip install numpy pandas scikit-learn scipy jupyter
+
+# launch notebook
+jupyter notebook k_nearest_neighbors.ipynb
+```
+
+## Dependencies
+
+| Package | Purpose |
+|---|---|
+| `pandas` | Data loading and manipulation |
+| `numpy` | Array operations |
+| `scikit-learn` | Ball Tree implementation (`sklearn.neighbors.BallTree`) |
+| `scipy` | Haversine distance calculation |
