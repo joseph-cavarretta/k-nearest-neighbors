@@ -1,5 +1,7 @@
 # Finding closest pairs of coordinates from two arrays
 
+[![CI](https://github.com/joseph-cavarretta/k-nearest-neighbors/actions/workflows/ci.yml/badge.svg)](https://github.com/joseph-cavarretta/k-nearest-neighbors/actions/workflows/ci.yml)
+
 The purpose of this project is to demonstrate an effective, optimized approach for point distance matching across two arrays. 
 
 In one of my previous roles, I encountered a problem where for a list of tens of thousands of locations, I needed to find the nearest location to it from another list with thousands of potential matches (using latitude and longitude)
@@ -25,13 +27,10 @@ What's the fastest way to find the closest Starbucks to any house in the US?
 
 ```bash
 # install dependencies with uv
-uv sync
-
-# or with pip
-pip install numpy pandas scikit-learn scipy jupyter
+make install    # uv sync
 
 # launch notebook
-jupyter notebook k_nearest_neighbors.ipynb
+make notebook   # uv run jupyter notebook k_nearest_neighbors.ipynb
 ```
 
 ## Dependencies
