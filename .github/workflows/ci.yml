@@ -24,3 +24,56 @@ jobs:
 
       - name: Ruff format
         run: uv run --no-sync ruff format --check .
+
+  typecheck:
+    name: Type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install project (validates lockfile)
+        run: uv sync --locked
+
+      - name: Mypy
+        run: uv run --no-sync mypy src
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install project (validates lockfile)
+        run: uv sync --locked
+
+      - name: Pytest
+        run: uv run --no-sync pytest
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t knn-api .
+
+      - name: Smoke test container
+        run: |
+          docker run -d --rm --name knn-api -p 8000:8000 knn-api
+          for i in $(seq 1 30); do
+            curl -fsS localhost:8000/readyz && break
+            sleep 1
+          done
+          curl -fsS -X POST localhost:8000/v1/neighbors \
+            -H 'Content-Type: application/json' \
+            -d '{"query_points":[{"lat":40.0,"lon":-105.3}],"reference_points":[{"lat":39.7,"lon":-105.0}]}'
+          docker stop knn-api
