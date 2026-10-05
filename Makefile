@@ -18,9 +18,11 @@ format:
 check:
 	uv run ruff check .
 	uv run ruff format --check .
+	uv run python ../agent-dev-harness/python-styleguide/docstring_length.py .
+	uv run mypy .
 
 type-check:
-	uv run mypy src
+	uv run mypy .
 
 notebook:
 	uv run jupyter notebook k_nearest_neighbors.ipynb

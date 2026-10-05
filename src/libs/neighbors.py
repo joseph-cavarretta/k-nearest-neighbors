@@ -13,21 +13,11 @@ def find_nearest(
     unit: DistanceUnit,
     leaf_size: int,
 ) -> list[QueryResult]:
-    """Find the k nearest reference points for each query point.
+    """Find the k nearest reference points for each query point, nearest first.
 
-    Builds a BallTree over the reference points using the haversine metric
-    and queries it with the query points, mirroring the notebook analysis
-    (tree on the reference set, one query pass, ~850x faster than pairwise).
-
-    Args:
-        query_points: Points to find neighbors for.
-        reference_points: Candidate neighbor points the tree is built from.
-        k: Number of neighbors to return per query point (<= len(reference_points)).
-        unit: Distance unit for the returned distances.
-        leaf_size: BallTree leaf size.
-
-    Returns:
-        One QueryResult per query point, neighbors ordered nearest first.
+    Builds a BallTree over the reference points with the haversine metric and
+    queries it once with the query points, mirroring the notebook analysis (~850x
+    faster than pairwise). k must not exceed the number of reference points.
     """
     # haversine requires radians in (lat, lon) order
     query_radians = _to_radians(query_points)

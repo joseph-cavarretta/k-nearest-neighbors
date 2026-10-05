@@ -26,7 +26,10 @@ def create_app(settings: Settings) -> FastAPI:
     return application
 
 
-def _too_many_points_handler(request: Request, exc: Exception) -> JSONResponse:
+def _too_many_points_handler(
+    request: Request,  # noqa: ARG001  # FastAPI passes it to every exception handler
+    exc: Exception,
+) -> JSONResponse:
     """Map TooManyPointsError to HTTP 413."""
     return JSONResponse(status_code=413, content={"detail": str(exc)})
 
