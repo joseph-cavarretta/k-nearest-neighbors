@@ -1,8 +1,8 @@
 import time
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, Request
 
-from src.config.settings import Settings
 from src.libs.errors import TooManyPointsError
 from src.libs.neighbors import find_nearest
 from src.models import (
@@ -11,6 +11,9 @@ from src.models import (
     NeighborsRequest,
     NeighborsResponse,
 )
+
+if TYPE_CHECKING:
+    from src.config.settings import Settings
 
 router = APIRouter()
 

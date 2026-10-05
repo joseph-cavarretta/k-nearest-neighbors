@@ -3,7 +3,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    """Service settings, read from the environment and .env."""
+
+    model_config = SettingsConfigDict(env_file=".env", extra="forbid")
 
     max_points_per_list: int = Field(
         default=50_000,
